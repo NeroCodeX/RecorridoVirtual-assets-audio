@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>recorrido virtual</title>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="./js/app.js"></script>
+    <script src="./js/toggle_sound.js">
+    
+</script>
+    <link rel="stylesheet" href="./css/styles.css">
+    
+</head>
+
+<body>
+
+    <div class="button_container">
+        <button id="speaker-button">
+            <img id="speaker-img" src="./image/soundOff.png" alt="soundOff">
+        </button>
+    </div>
+
+    <a-scene>
+
+        <a-assets>
+            <!-- precarga audio -->
+            <audio src="./sound/coin.wav" id="coin-sound"></audio>
+            <audio src="./sound/pajaro.wav" id="pajaro-sound"></audio>
+            <audio src="./sound/catedralSound.ogg" id="catedral-sound"></audio>
+            <!-- precargados a la scenak -->
+            <img src="./image/catedral.jpg" alt="catedral" id="catedral">
+            <img src="./image/plaza.jpg" alt="plaza" id="plaza">
+            <img src="./image/entrada.jpg" alt="entrada" id="entrada">
+            <img src="./image/salida.png" alt="salida" id="salida">
+
+
+        </a-assets>
+
+        <a-camera>
+            <a-cursor color="white" cursor="fuse: true; fuseTimeout: 100 " raycaster="objects: .clickeable"></a-cursor>
+        </a-camera>
+
+        <a-entity position="0 3 -5">
+            <!-- GrandParentEntity -->
+
+            <a-entity>
+                <a-box scale=".25 .25 .25 .25" color="red" rotation="45 45 45" visible="false"
+                    animation__position="property: rotation; to:  360 0 0; dir: alternate; dur:4000; loop: true">
+                </a-box>
+
+                <a-plane color="black" class="puerta-de-entrada-inside clickeable" position="1.7 0 0 " width="3"
+                    height="0.25" change-site="img: #plaza; zone: .puerta-de-entrada-inside; sound: #coin-sound"
+                    sound="on: mouseenter; src:#coin-sound">
+
+                    <a-text value="Plaza colon" color="gray" align="center"></a-text>
+
+                </a-plane>
+                <!-- destacamos los circulos para usarlos de salida -->
+
+                <a-circle opacity="0" position="-3 0 10" rotation="0 135 0" radius="2" color="white"
+                    class="puerta-de-entrada-inside" visible="false"
+                    change-site="img: #entrada; zone: .puerta-de-entrada-outside; sound: #catedral-sound;"
+                    sound="on: mouseenter; src: #coin-sound">
+
+                    <a-image src="#salida"></a-image>
+
+                </a-circle>
+
+                <a-circle opacity="0" position="8.5 0.4 -1.5" rotation="0 -45 0" radius="2" color="white"
+                    scale="1 0.8 1" class="puerta-de-entrada-outside" visible="false"
+                    change-site="img: #plaza; zone: .puerta-de-entrada-inside; sound:#pajaro-sound;"
+                    sound="on: mouseenter; src: #coin-sound">
+
+                    <a-image src="#salida"></a-image>
+
+                </a-circle>
+
+            </a-entity>
+
+            <a-entity position="0 -0.3 0">
+                <!-- ParentEntity -->
+
+                <a-box scale="0.25 0.25 0.25 0.25" color="red" rotation="45 45 45"
+                    animation__position="property: rotation; to:  360 0 0; dir: alternate; dur:4000; loop: true">
+                </a-box>
+
+                <a-plane color="black" position="1.7 0 0" width="3" height="0.25"
+                    change-site=" img: #catedral; zone: .catedral; sound: #catedral-sound" sound="on: mouseenter; src:#coin-sound">
+
+                    <a-text value="Catedral Cochabamba" color="white" align="center"></a-text>
+
+                </a-plane>
+
+            </a-entity>
+
+        </a-entity>
+
+        <a-sky id="my-sky" src="#catedral"
+        sound="src:#catedral-sound; loop: true"
+        data-sounding="false"></a-sky>
+
+
+    </a-scene>
+
+</body>
+
+</html>

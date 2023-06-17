@@ -1,0 +1,23 @@
+.button_container{
+    position: fixed;
+    right: 2em;
+    top: 2em;
+    width: 3em;
+    height: 3em;
+    text-align: center;
+    z-index: 1;
+}
+
+#speaker-button{
+    border-radius: 5px;
+/*     
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px; */
+}
+
+#speaker-img{
+    width: 100%;
+    height: auto;
+}
